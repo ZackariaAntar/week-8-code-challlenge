@@ -48,6 +48,8 @@ app.get('/jokes', function(req, res){
 app.post('/jokes', function (req, res){
   jokes.push(req.body);
 
+  res.sendStatus(201)
+
 })
 
 

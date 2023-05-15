@@ -2,7 +2,12 @@ console.log('client.js sourced');
 
 $( document ).ready( onReady );
 
+let whoseJoke;
+let jokeQuestion;
+let punchLine;
+
 function onReady() {
+    $("#addJokeButton").on('click', postJokes);
     console.log('DOM ready');
     getJokes()
 }
@@ -19,10 +24,11 @@ function getJokes(){
 
 }
 
-function postJokes(){
-    let whoseJoke = $("#whoseJokeIn").val();
-    let jokeQuestion = $("#questionIn").val();
-    let punchLine = $("#punchlineIn").val();
+function postJokes(event){
+    event.preventDefault()
+    whoseJoke = $("#whoseJokeIn").val();
+    jokeQuestion = $("#questionIn").val();
+    punchLine = $("#punchlineIn").val();
     $.ajax({
         method: 'POST',
         url: '/jokes',
@@ -41,8 +47,9 @@ function postJokes(){
 }
 
 function renderToDOM(jokeList){
+    $('#outputDiv').empty()
     for (let joke of jokeList){
-        $('#outputDiv').append(<p class="jokes">${joke.jokeQuestion}</p>)
+        $('#outputDiv').append(`<p class="jokes">${joke.jokeQuestion}</p>`)
         // add the rest of the props after testing.
         // figure out formatting.
     }
